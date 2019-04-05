@@ -24,17 +24,30 @@ public class Corredor extends Thread{
     }
     private void recorrer() throws InterruptedException{
       if(posicion==1){
+        opcion1();
+    }else if(posicion==2){
+        opcion2();
+    }else if(posicion==3){
+        opcion3();
+    }
+    }
+   @Override
+    public void run(){
+        try {
+            recorrer();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Corredor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void opcion1() throws InterruptedException{
         int j=0;
         while(j<33){
         int i;
-            System.out.println(j);
+        System.out.println("");
         i= (int)(Math.random()*((3-0)))+0;
         j=j+i;
         pista.pistaP1 = pista.pistaP1.replace('*', '_');
         if(j>32){
-            if(pista.pistaP1.charAt(32)!='*'){  
-                System.out.println("error");
-        }
             j=33;
             pista.pistaP1 = pista.pistaP1.substring(1,j)+'*';
             synchronized(pista){
@@ -48,8 +61,8 @@ public class Corredor extends Thread{
         System.out.println(equipo+pista.pistaP1+pista.pistaP2+pista.pistaP3);
         Thread.sleep(500);
     }
-    }else if(posicion==2){
-        
+    }
+    public void opcion2() throws InterruptedException{
         synchronized(pista){
             if(pista.pistaP1.charAt(32)!='*'){  
                 pista.wait();
@@ -60,11 +73,11 @@ public class Corredor extends Thread{
         int j=0;
         while(j<33){
         int i;
+        System.out.println("");
         i= (int)(Math.random()*((3-0)))+0;
         j=j+i;
         pista.pistaP2 = pista.pistaP2.replace('*', '_');
         if(j>32){
-            
             j=33;
             pista.pistaP2 = pista.pistaP2.substring(1,j)+'*';
             synchronized(pista){
@@ -81,20 +94,21 @@ public class Corredor extends Thread{
         System.out.println(equipo+pista.pistaP1+pista.pistaP2+pista.pistaP3);
         Thread.sleep(500);
         }
-    }else if(posicion==3){
+    }
+    public void opcion3() throws InterruptedException{
         synchronized(pista){
             if(pista.pistaP2.charAt(32)!='*'){  
                 pista.wait();
                 if(pista.pistaP2.charAt(32)!='*'){ 
                     pista.wait();
                 }
-                
         } 
       }
         //System.out.println("esta es pista 2"+pista.pistaP2);
         int j=0;
         while(j<34){
         int i;
+        System.out.println("");
         int tamaño=0;
         i= (int)(Math.random()*((3-0)))+0;
         j=j+i;
@@ -111,19 +125,9 @@ public class Corredor extends Thread{
 
         //clrscr();
         //gotoxy(0,0);
-        System.out.flush();
         System.out.println(equipo+pista.pistaP1+pista.pistaP2+pista.pistaP3);
         Thread.sleep(500);
     }
-    }
-    }
-   @Override
-    public void run(){
-        try {
-            recorrer();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Corredor.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     private void clrscr() {
