@@ -15,23 +15,50 @@ import java.util.logging.Logger;
  * @version 1.5
  */
 public class Corredor extends Thread{
+    /**
+     * Variable que guarda la posicion de relevo del atleta en el equipo
+     */
     int posicion;
+    /**
+     * Objeto tipo Pista para los tres atletas por equipo
+     */
     Pista pista;
+    /**
+     * Variable que guarda el numero del equipo
+     */
     String equipo;
+    /**
+     * Constructor de Corredor
+     * @param posicion recibe numero de posicion del atleta en la pista
+     * @param pista recibe objeto pista para la impresion con los atletas
+     * @param equipo recibe numero de equipo
+     */
     public Corredor(int posicion, Pista pista, String equipo) {
         this.posicion=posicion;
         this.pista=pista;
         this.equipo=equipo;
     }
+    /**
+     * Método recorrer que se inicia en cada hilo
+     */
     private void recorrer() throws InterruptedException{
-      if(posicion==1){
-        opcion1();
-    }else if(posicion==2){
-        opcion2();
-    }else if(posicion==3){
-        opcion3();
+        switch (posicion) {
+            case 1:
+                opcion1("*");
+                break;
+            case 2:
+                opcion2("+");
+                break;
+            case 3:
+                opcion3("o");
+                break;
+            default:
+                break;
+        }
     }
-    }
+    /**
+     * Método run que ejecuta la funcion recorrer en cada hilo
+     */
    @Override
     public void run(){
         try {
@@ -40,7 +67,13 @@ public class Corredor extends Thread{
             Logger.getLogger(Corredor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void opcion1() throws InterruptedException{
+    /**
+     * Método del avance del atleta según su posición en la pista
+     * @param fig recibe el simbolo del atleta
+     * @return devuelve el simbolo cuando el atleta termina el relevo
+     * @throws InterruptedException
+     */
+    public String opcion1(String fig) throws InterruptedException{
         int j=0;
         while(j<33){
         int i;
@@ -66,8 +99,15 @@ public class Corredor extends Thread{
         }
         Thread.sleep(500);
     }
+        return fig;
     }
-    public void opcion2() throws InterruptedException{
+    /**
+     * Método del avance del atleta según su posición en la pista
+     * @param fig recibe el simbolo del atleta
+     * @return devuelve el simbolo cuando el atleta termina el relevo
+     * @throws InterruptedException
+     */
+    public String opcion2(String fig) throws InterruptedException{
         synchronized(pista){
             if(pista.pistaP1.charAt(32)!=pista.figura.charAt(0)){  
                 pista.wait();
@@ -100,8 +140,15 @@ public class Corredor extends Thread{
         }
         Thread.sleep(500);
         }
+        return fig;
     }
-    public void opcion3() throws InterruptedException{
+    /**
+     * Método del avance del atleta según su posición en la pista
+     * @param fig recibe el simbolo del atleta
+     * @return devuelve el simbolo cuando el atleta termina el relevo
+     * @throws InterruptedException
+     */
+    public String opcion3(String fig) throws InterruptedException{
         synchronized(pista){
             if(pista.pistaP2.charAt(32)!=pista.figura.charAt(0)){  
                 pista.wait();
@@ -136,5 +183,6 @@ public class Corredor extends Thread{
         }
         Thread.sleep(500);
     }
+        return fig;
     }
 }

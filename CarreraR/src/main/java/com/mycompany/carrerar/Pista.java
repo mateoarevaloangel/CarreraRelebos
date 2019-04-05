@@ -12,10 +12,26 @@ package com.mycompany.carrerar;
  * @version 1.5
  */
 public class Pista {
+    /**
+     * Variable tipo string que guarda el tamaño de la pista para el atleta 1
+     */
     String pistaP1;
+    /**
+     * Variable tipo string que guarda el tamaño de la pista para el atleta 2
+     */
     String pistaP2;
+    /**
+     * Variable tipo string que guarda el tamaño de la pista para el atleta 3
+     */
     String pistaP3;
+    /**
+     * Variable que guarda el simbolo que representa al atleta
+     */
     String figura;
+    /**
+     * Constructor para formar la pista de 100 pasos
+     * @param figura recibe el simbolo del atleta
+     */
     public Pista(String figura) {
         this.figura = figura;
         this.pistaP1 = figura+"________________________________";
