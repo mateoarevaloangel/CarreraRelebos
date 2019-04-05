@@ -8,11 +8,13 @@ package com.mycompany.carrerar;
 /**
  *
  * @author daniel
+ * @author MateoG
+ * @version 1.5
  */
 public class Principal {
-    static Pista p1=new Pista();
-    static Pista p2=new Pista();
-    static Pista p3=new Pista();
+    static Pista p1=new Pista("*");
+    static Pista p2=new Pista("+");
+    static Pista p3=new Pista("o");
     
     static Corredor c1=new Corredor(1,p1,"equipo 1");
     static Corredor c2=new Corredor(2,p1,"equipo 1");
@@ -36,6 +38,5 @@ public class Principal {
         c7.start();
         c8.start();
         c9.start();
-        
     }
 }

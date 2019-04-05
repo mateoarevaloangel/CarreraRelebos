@@ -8,6 +8,8 @@ package com.mycompany.carrerar;
 /**
  *
  * @author daniel
+ * @author MateoG
+ * @version 1.5
  */
 public class Main {
 

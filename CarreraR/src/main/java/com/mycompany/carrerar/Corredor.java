@@ -11,16 +11,17 @@ import java.util.logging.Logger;
 /**
  *
  * @author daniel
+ * @author MateoG
+ * @version 1.5
  */
 public class Corredor extends Thread{
-    String figura="*";
     int posicion;
     Pista pista;
     String equipo;
     public Corredor(int posicion, Pista pista, String equipo) {
-       this.posicion=posicion;
-       this.pista=pista;
-       this.equipo=equipo;
+        this.posicion=posicion;
+        this.pista=pista;
+        this.equipo=equipo;
     }
     private void recorrer() throws InterruptedException{
       if(posicion==1){
@@ -43,98 +44,97 @@ public class Corredor extends Thread{
         int j=0;
         while(j<33){
         int i;
-        System.out.println("");
         i= (int)(Math.random()*((3-0)))+0;
         j=j+i;
-        pista.pistaP1 = pista.pistaP1.replace('*', '_');
+        pista.pistaP1 = pista.pistaP1.replace(pista.figura.charAt(0), '_');
         if(j>32){
             j=33;
-            pista.pistaP1 = pista.pistaP1.substring(1,j)+'*';
+            pista.pistaP1 = pista.pistaP1.substring(1,j)+pista.figura.charAt(0);
             synchronized(pista){
                 pista.notifyAll();
             }
             
         }else{
-            pista.pistaP1 = pista.pistaP1.substring(0,j)+'*'+pista.pistaP1.substring(j+1);
+            pista.pistaP1 = pista.pistaP1.substring(0,j)+pista.figura.charAt(0)+pista.pistaP1.substring(j+1);
         }
-        System.out.flush(); 
+        
         System.out.println(equipo+pista.pistaP1+pista.pistaP2+pista.pistaP3);
+        if(equipo == "equipo 3"){
+            for (int a=0; a<30; a++){
+                System.out.println();
+            }
+        }
         Thread.sleep(500);
     }
     }
     public void opcion2() throws InterruptedException{
         synchronized(pista){
-            if(pista.pistaP1.charAt(32)!='*'){  
+            if(pista.pistaP1.charAt(32)!=pista.figura.charAt(0)){  
                 pista.wait();
-        }else{
-                System.out.println("error");
-            }
+        }
       }
         int j=0;
         while(j<33){
         int i;
-        System.out.println("");
         i= (int)(Math.random()*((3-0)))+0;
         j=j+i;
-        pista.pistaP2 = pista.pistaP2.replace('*', '_');
+        pista.pistaP2 = pista.pistaP2.replace(pista.figura.charAt(0), '_');
         if(j>32){
             j=33;
-            pista.pistaP2 = pista.pistaP2.substring(1,j)+'*';
+            pista.pistaP2 = pista.pistaP2.substring(1,j)+pista.figura.charAt(0);
             synchronized(pista){
                 pista.notifyAll();
             }
             
         }else{
-            pista.pistaP2 = pista.pistaP2.substring(0,j)+'*'+pista.pistaP2.substring(j+1);
+            pista.pistaP2 = pista.pistaP2.substring(0,j)+pista.figura.charAt(0)+pista.pistaP2.substring(j+1);
         }
         if(pista.pistaP2=="_________________________________"){
-            pista.pistaP2="________________________________*";
+            pista.pistaP2="________________________________"+pista.figura.charAt(0);
         }
-        System.out.flush(); 
         System.out.println(equipo+pista.pistaP1+pista.pistaP2+pista.pistaP3);
+        if(equipo == "equipo 3"){
+            for (int a=0; a<30; a++){
+                System.out.println();
+            }
+        }
         Thread.sleep(500);
         }
     }
     public void opcion3() throws InterruptedException{
         synchronized(pista){
-            if(pista.pistaP2.charAt(32)!='*'){  
+            if(pista.pistaP2.charAt(32)!=pista.figura.charAt(0)){  
                 pista.wait();
-                if(pista.pistaP2.charAt(32)!='*'){ 
+                if(pista.pistaP2.charAt(32)!=pista.figura.charAt(0)){ 
                     pista.wait();
                 }
         } 
       }
-        //System.out.println("esta es pista 2"+pista.pistaP2);
         int j=0;
         while(j<34){
         int i;
-        System.out.println("");
-        int tamaño=0;
         i= (int)(Math.random()*((3-0)))+0;
         j=j+i;
-        pista.pistaP3 = pista.pistaP3.replace('*', '_');
+        pista.pistaP3 = pista.pistaP3.replace(pista.figura.charAt(0), '_');
         if(j>32){
-            if(pista.pistaP3.charAt(32)!='*'){  
-                System.out.println("error");
+            if(pista.pistaP3.charAt(32)!=pista.figura.charAt(0)){  
                 j=34;
-                 pista.pistaP3 = pista.pistaP3.substring(0,j)+'*';
+                 pista.pistaP3 = pista.pistaP3.substring(0,j)+pista.figura.charAt(0);
+                 System.out.println(equipo+pista.pistaP1+pista.pistaP2+pista.pistaP3);
+                 System.out.println("¡Ganó el "+equipo+"!");
+                 System.exit(0);
         }
         }else{
-            pista.pistaP3 = pista.pistaP3.substring(0,j)+'*'+pista.pistaP3.substring(j+1);
+            pista.pistaP3 = pista.pistaP3.substring(0,j)+pista.figura.charAt(0)+pista.pistaP3.substring(j+1);
         }
 
-        //clrscr();
-        //gotoxy(0,0);
         System.out.println(equipo+pista.pistaP1+pista.pistaP2+pista.pistaP3);
+        if(equipo == "equipo 3"){
+            for (int a=0; a<30; a++){
+                System.out.println();
+            }
+        }
         Thread.sleep(500);
     }
-    }
-
-    private void clrscr() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void gotoxy(int i, int i0) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
